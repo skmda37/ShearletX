@@ -1,0 +1,19 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Environments
+venv
+
+# Research  
+data/
+*.pt
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+
+# seed project
+.DS_Store
+
+
+
