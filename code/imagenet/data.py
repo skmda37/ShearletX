@@ -21,7 +21,7 @@ with open('/home/math/kolek/dev/cartoonx++/cartoonx_imagenet/map_clsloc.txt') as
 
 class Imagenet(Dataset):
     def __init__(self, 
-                 imagenet_path='/home/groups/ai/datasets/imagenet_dataset/val/',
+                 imagenet_path='/home/groups/ai/datasets/imagenet_dataset_tmp/val/',
                  samples_per_class=10,
                  num_labels=1000):
 
