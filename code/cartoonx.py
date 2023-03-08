@@ -21,8 +21,6 @@ class CartoonX:
             mask_init,
             obfuscation='uniform',
             maximize_label=False,
-            l1_reg=.5,
-            l2_reg=0.,
             dwt_params=DWT_DEFAULT_PARAMS,
             device=DEVICE):
         """
@@ -35,8 +33,6 @@ class CartoonX:
            obfuscation: str "gaussian" or "uniform"
            maximize_label: bool - whether to maximize the label probability
            mask_init: List mask on wavelet coefficients (comes as list with submasks)
-           l1_reg: float l1 spatial regularization multiplier
-           l2_reg: float l2 spatial regularization multiplier
            dwt_params: dict paramters for DWT
            device: str cpu or gpu
         """
@@ -48,8 +44,6 @@ class CartoonX:
         self.obfuscation = obfuscation
         self.maximize_label = maximize_label
         self.mask_init = mask_init
-        self.l1_reg = l1_reg
-        self.l2_reg = l2_reg
         self.dwt_params=dwt_params
         self.device = device
 
@@ -68,10 +62,8 @@ class CartoonX:
         
         # Initialize optimization loss tracking
         l1wavelet_loss = []
-        l1spatial_loss = []
-        l2spatial_loss = []
         distortion_loss = []
-        
+
         # Get wavelet coefficients of colored image 
         # (yl are low pass coefficients, yh are high pass coeffcients)
         # yl is a tensor and yh is a list of tensors (see pytorch wavelets doc)
@@ -114,8 +106,6 @@ class CartoonX:
             for y, m, p in zip(yh, m_yh, p_yh): obf_yh.append((m.unsqueeze(1)*y.unsqueeze(1)+(1-m.unsqueeze(1))*p))
             # Get obfuscation in pixel space by applying inverse dwt and projecting into [0,1]
             obf_x = self.inverse_dwt((obf_yl.reshape(-1, *obf_yl.shape[2:]), [o.reshape(-1,*o.shape[2:]) for o in obf_yh])).clamp(0,1)
-            # Get grayscale cartoonx for spatial reagularization
-            cartoonx = self.inverse_dwt((m_yl*yl_gray, [m*y for m,y in zip(m_yh, yh_gray)])).clamp(0,1)
             # Get model output for obfuscation (need to have one copy for each noise perturbation sample)
             targets_copied = torch.stack(self.noise_bs*[target]).T.reshape(-1)
             out_obf = self.get_model_output(obf_x, targets_copied).reshape(x.size(0), self.noise_bs)
@@ -127,17 +117,13 @@ class CartoonX:
             l1waveletcoefs = m_yl.abs().sum() 
             for m in m_yh: l1waveletcoefs += m.abs().sum()
             l1waveletcoefs /= num_mask
-            l1spatial = (cartoonx.abs().reshape(cartoonx.size(0), -1).sum(dim=-1) / (np.prod(cartoonx.shape[1:]))).sum()
-            l2spatial = torch.sqrt((cartoonx.pow(2).reshape(cartoonx.size(0), -1).sum(dim=-1) / (np.prod(cartoonx.shape[1:]))).sum())
             
             # Log losses
             distortion_loss.append(distortion_batch.detach().clone().cpu().numpy())
             l1wavelet_loss.append(l1waveletcoefs.item())
-            l1spatial_loss.append(l1spatial.item())
-            l2spatial_loss.append(l2spatial.item())
                 
             # Compute optiimization loss
-            loss = distortion + self.l1lambda * l1waveletcoefs + self.l1_reg * l1spatial + self.l2_reg * l2spatial
+            loss = distortion + self.l1lambda * l1waveletcoefs 
             # Perform optimization step
             opt.zero_grad()
             loss.backward()
@@ -161,35 +147,11 @@ class CartoonX:
         cartoonx = torch.cat(cartoonx_per_rgb, dim=1).clamp(0,1)
         assert tuple(cartoonx.shape)==tuple(x.shape), cartoonx.shape
 
-        # Compute mask statistics
-        # Compute l1 of masked image in wavelet representation
-        l1_masked_representation = (m_yl.detach()*yl).abs().sum().item() + sum([(m.detach()*y).abs().sum().item() for m,y in zip(m_yh, yh)])
-        # Compute l1 of original image in wavelet representation 
-        l1_img_representation = yl.abs().sum().item() + sum([y.detach().abs().sum().item() for y in yh])
-        # Compute entropy of masked image in wavelet representation
-        normalization = (m_yl.detach()*yl).abs().pow(2).sum().item()
-        normalization += sum([(m.detach()*y).abs().pow(2).sum().item() for m,y in zip(m_yh, yh)])
-        entropy_masked_representation = ( ((m_yl.detach()*yl).abs().pow(2)/normalization) * torch.log(1e-7 + ((m_yl.detach()*yl).abs().pow(2)/normalization))).sum().item()        
-        entropy_masked_representation += sum([( ((m.detach()*y).abs().pow(2)/normalization) * torch.log(1e-7 + ((m.detach()*y).abs().pow(2)/normalization))).sum().item() for m,y in zip(m_yh, yh)])
-        entropy_masked_representation = -entropy_masked_representation
-        # Compute entropy of original image in wavelet representation
-        normalization = yl.abs().pow(2).sum().item()
-        normalization += sum([y.detach().abs().pow(2).sum().item() for y in yh])
-        entropy_img_representation = ( (yl.abs().pow(2)/normalization) * torch.log( (yl.abs().pow(2)/normalization) + 1e-7)).sum().item() 
-        entropy_img_representation += sum([( (y.detach().abs().pow(2)/normalization) * torch.log((y.detach().abs().pow(2)/normalization) + 1e-7)).sum().item() for y in yh])
-        entropy_img_representation = -entropy_img_representation
         
         # Get a dictionary with losses, mask statistics, and final mask
         history = {'mask': (m_yl.detach(), [m.detach() for m in m_yh]),
-                   'forward_dwt': self.forward_dwt,
-                   'inverse_dwt': self.inverse_dwt,
                    'distortion': distortion_loss,
-                   'l1wavelet': l1wavelet_loss, 'l1spatial': l1spatial_loss,
-                   'l2spatial': l2spatial_loss,
-                   'l1_masked_representation': np.array(l1_masked_representation),
-                   'l1_img_representation': np.array(l1_img_representation),
-                   'entropy_masked_representation': np.array(entropy_masked_representation),
-                   'entropy_img_representation': np.array(entropy_img_representation)
+                   'l1wavelet': l1wavelet_loss
                   }
 
         return cartoonx, history 

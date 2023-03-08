@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
-
+warnings.filterwarnings("ignore", category=np.VisibleDeprecationWarning)
 import torch
 import torchvision
 import pyshearlab

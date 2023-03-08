@@ -7,7 +7,8 @@ import torch
 DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")   
 softmax = torch.nn.Softmax(dim=-1)
 
-class PixelMASK:
+
+class PixelMask:
     def __init__(
             self,
             model, 
