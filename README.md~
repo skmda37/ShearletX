@@ -4,7 +4,7 @@
 		<!--<img width = "300" src = "./imgs/afghan_hound.png"> -->
 		
 <div><p>Authors: Stefan Kolek, Robert Windesheim, Hector Andrade Loarca, Gitta Kutyniok, Ron Levie</p></div>
-<div><p>Conference: CVPR 2023 </p></div>
+<div>Conference: CVPR 2023</div>
 </div>
 
 # Paper Summary
