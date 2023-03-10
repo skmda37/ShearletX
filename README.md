@@ -83,13 +83,13 @@ Python 3.8.x and newer are supported:
 First, do <code>cd <a href = "./code/">code/</a></code>. Then you can either:
 <div>
 	<ol>
-		<li> Explain models with ShearletX and WaveletX in <code> <a href = "./code/visualize_example_explanations.ipynb">visualize_example_explanations.ipynb</a> </code></li>
+		<li> Explain models with ShearletX and WaveletX in <code><a href = "./code/visualize_example_explanations.ipynb">visualize_example_explanations.ipynb</a> </code></li>
         <br>
         <div style="text-align: center;">
         <img width = "500" src = "./imgs/explanation_example.png", style="margin-top: 10px;">
         </div>
         <br>
-		<li> Visualize explanation artifacts in <code> <a href = "./code/visualize_explanation_artifacts.ipynb">visualize_explanation_artifacts.ipynb</a></code></li>
+		<li> Visualize explanation artifacts in <code><a href = "./code/visualize_explanation_artifacts.ipynb">visualize_explanation_artifacts.ipynb</a></code></li>
         <br>
         <div style="text-align: center;">
         <img width = "500" src = "./imgs/explanation_artifacts.png", style="margin-top: 10px;">
