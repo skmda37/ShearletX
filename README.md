@@ -88,11 +88,13 @@ First, do <code>cd <a href = "./code/">code/</a></code>. Then you can either:
         <div style="text-align: center;">
         <img width = "500" src = "./imgs/explanation_example.png", style="margin-top: 10px;">
         </div>
+        <br>
 		<li> Visualize explanation artifacts in <code> <a href = "./code/visualize_explanation_artifacts.ipynb">visualize_explanation_artifacts.ipynb</a></code></li>
         <br>
         <div style="text-align: center;">
-        <img width = "r5600" src = "./imgs/explanation_artifacts.png", style="margin-top: 10px;">
+        <img width = "500" src = "./imgs/explanation_artifacts.png", style="margin-top: 10px;">
         </div>
+        <br>
         <li> Reproduce the scatterplot experiments from Figure 4 by running 
             <code>python <a href = "./code/scatterplot.py">scatterplot.py</a></code>. This will produce the scatterplots with the following different settings that were used in the paper:
             <ul>
