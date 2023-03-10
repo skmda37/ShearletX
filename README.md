@@ -1,9 +1,10 @@
 <div align="center">
 	<a href = "https://arxiv.org/pdf/2211.12857.pdf">
-        Explaining Image Classifiers with Multiscale Directional Image Representation
+        Paper Title: Explaining Image Classifiers with Multiscale Directional Image Representation
 		<!--<img width = "300" src = "./imgs/afghan_hound.png"> -->
 		
 <div><p>Authors: Stefan Kolek, Robert Windesheim, Hector Andrade Loarca, Gitta Kutyniok, Ron Levie</p></div>
+<<div><p>Conference: CVPR 2023 </p></div>
 </div>
 
 # Paper Summary
