@@ -85,11 +85,11 @@ First, do <code>cd <a href = "./code/">code/</a></code>. Then you can either:
 	<ol>
 		<li> To explain models with ShearletX and WaveletX open jupypter notebook <code> <a href = "./code/visualize_example_explanations.ipynb">visualize_example_explanations.ipynb</a> </code></li>
         <div>
-        <img width = "500" src = "./imgs/explanation_example.png">
+        <img width = "500" src = "./imgs/explanation_example.png", style="margin-top: 10px;">
         </div>
 		<li> To visualize explanation artifacts open jupyter notebook <code> <a href = "./code/visualize_explanation_artifacts.ipynb">visualize_explanation_artifacts.ipynb</a></code></li>
         <div>
-        <img width = "500" src = "./imgs/explanation_artifacts.png">
+        <img width = "500" src = "./imgs/explanation_artifacts.png", style="margin-top: 10px;">
         </div>
         <li> To reproduce scatterplot experiment from Figure 4 run 
             <code><a href = "./code/scatterplot.py">scatterplot.py</a></code>. This will produce the scatterplots with the following different settings that were used in the paper:
