@@ -2,11 +2,12 @@
 __pycache__/
 
 # Environments
-venv
+venv/
 
 # Research  
 data/
 *.pt
+scatter_data/
 
 # Jupyter Notebook
 .ipynb_checkpoints

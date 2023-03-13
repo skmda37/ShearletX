@@ -1,9 +1,8 @@
 <div align="center">
 	<a href = "https://arxiv.org/pdf/2211.12857.pdf">
         Paper Title: Explaining Image Classifiers with Multiscale Directional Image Representation
-		<!--<img width = "300" src = "./imgs/afghan_hound.png"> -->
-		
 <div><p>Authors: Stefan Kolek, Robert Windesheim, Hector Andrade Loarca, Gitta Kutyniok, Ron Levie<br>Conference: CVPR 2023</p></div>
+<img width = "300" src = "./imgs/afghan_hound_cover.png">
 </div>
 
 # Paper Contributions
@@ -75,9 +74,7 @@ Python 3.8.x and newer are supported:
 <div>
 <ol>
 		<li> <code><a href = "./code/">code/</a></code>: Contains the code to use ShearletX and WaveletX, and reproducing the paper experiments.</li>
-		<li> <code><a href = "./imgs/">libs/</a></code>: Contains all images for this README.md.
-						   (Installed automatically in setup.txt)</li>
-		<li> <code><a href = "./data/">data/</a></code>: Folder where datasets are present. Created automatically when running for first time.</li>
+		<li> <code><a href = "./imgs/">libs/</a></code>: Contains all images for this README.md.</li>
 	</ol>
 </div>
 
