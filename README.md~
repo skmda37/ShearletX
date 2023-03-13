@@ -36,11 +36,11 @@ We introduce the conciseness-preciseness (CP) scores as a new information theore
 Python 3.7.x and newer are supported:
 
 ```shell
-# Clone project   
-git clone https://github.com/skmda37/ShearletX.git 
+# clone project   
+git clone https://github.com/skmda37/CartoonX.git 
 
 # Enter directocry
-cd ShearletX
+cd CartoonX 
 
 # Create and activate virtual environment (or conda environment)
 python -m venv env
