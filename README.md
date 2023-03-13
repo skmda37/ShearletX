@@ -33,42 +33,31 @@ We introduce the conciseness-preciseness (CP) scores as a new information theore
 
 
 # Setup
-Python 3.8.x and newer are supported:
+Python 3.7.x and newer are supported:
 
-<details>
-	<summary>Automated Setup</summary>
-	<ol>
-		<li> Create a virtualenv at the root of the repo: <code>python -m venv venv4coshnet</code> </li>
-		<li> Activate venv4coshnet:
-			<ul>
-				<li> Windows: <code>venv4coshnet\Scripts\activate</code> </li>
-				<li> Linux/MacOS: <code>source venv4coshnet/bin/activate</code> </li>
-			</ul> 
-		</li>
-		<li> Run setup.py:
-			<ul>
-				<li> with <code>CUDA</code>: <code>python <a href = "./setup.py">setup.py</a></code> </li>
-				<li> without <code>CUDA</code>: <code>python <a href = "./setup.py">setup.py</a> --no-cuda</code> </li>
-				<li> use <code>--no-venv</code> to disable venv check (e.g. inside a docker) </li>
-			</ul>
-		</li>	
-	</ol>
+```shell
+# clone project   
+git clone https://github.com/skmda37/CartoonX.git 
 
-</details>
+# Enter directocry
+cd CartoonX 
 
-<details>
-	<summary>Manual Setup</summary>
-	<ul>
-		<li> Please follow: <code><a href = "./setup.txt">setup.txt</a></code></li>
-	</ul>
-</details>
+# Create and activate virtual environment (or conda environment)
+python -m venv env
+source env/bin/activate   
 
-<details>
-	<summary>Docker Setup</summary>
-	<ul>
-		<li> Build image: <code>docker build -t coshnet-docker:latest .</code> (Some systems might require running this in `sudo` mode.)</li>
-	</ul>
-</details>
+# install pytorch wavelets package (see https://pytorch-wavelets.readthedocs.io/en/latest/readme.html for the docs)
+git clone https://github.com/fbcotter/pytorch_wavelets
+cd pytorch_wavelets
+pip install .
+pip install -r tests/requirements.txt
+pytest tests/
+cd ..
+
+# install other project dependencies from requirements file   
+pip install -r requirements.txt
+```   
+    
 
 # Contents
 <div>
