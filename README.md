@@ -74,7 +74,7 @@ Python 3.8.x and newer are supported:
 <div>
 <ol>
 		<li> <code><a href = "./code/">code/</a></code>: Contains the code to use ShearletX and WaveletX, and reproducing the paper experiments.</li>
-		<li> <code><a href = "./imgs/">libs/</a></code>: Contains all images for this README.md.</li>
+		<li> <code><a href = "./imgs/">imgs/</a></code>: Contains all images for this README.md.</li>
 	</ol>
 </div>
 
